@@ -1,0 +1,20 @@
+﻿using System;
+using UnityEngine;
+
+public class Task : MonoBehaviour
+{
+    private void Awake()
+    {
+        EventCenter.Instance.AddEventListener<Monster>(E_EventType.E_Monster_dead,TaskWaitMonsterDeadDo);
+    }
+
+    public void TaskWaitMonsterDeadDo(Monster info)
+    {
+        Debug.Log("任务记录" + info.monsterName);
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.Instance.RemoveEventListener<Monster>(E_EventType.E_Monster_dead, TaskWaitMonsterDeadDo);
+    }
+}
