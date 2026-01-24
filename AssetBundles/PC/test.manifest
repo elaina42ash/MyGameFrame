@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.3.1f1
+CRC: 1184745887
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5e62724e953ee7f0186906b375847a2b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af33ec919e3192a365d243cf42d8bb55
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: ba92d4f6316c38e763a2abc40ba147ec
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Editor/ArtRes/Test/Cube.prefab
+Dependencies: []

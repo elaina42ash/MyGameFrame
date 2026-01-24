@@ -1,0 +1,12 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.3.1f1
+CRC: 1125227238
+HashAppended: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: test
+      Dependencies: {}
+    Info_1:
+      Name: ui
+      Dependencies: {}

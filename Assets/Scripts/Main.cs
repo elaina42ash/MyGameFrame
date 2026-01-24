@@ -1,31 +1,44 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Main : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+
+        // 同一帧调用显示某一个面板
+        UIMgr.Instance.ShowPanel<BeginPanel>(E_UILayer.Middle, (panel) =>
+        {
+            print("第一次显示");
+        },true);
+        UIMgr.Instance.HidePanel<BeginPanel>();
+        UIMgr.Instance.ShowPanel<BeginPanel>(E_UILayer.Middle, (panel) =>
+        {
+            print("第二次显示");
+        }, true);
+        UIMgr.Instance.GetPanel<BeginPanel>((panel) =>
+        {
+            print("获取面板要处理的逻辑");
+        });
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Keyboard.current.sKey.wasPressedThisFrame)
         {
-            GameObject.Find("Monster").GetComponent<Monster>().Dead();
-            EventCenter.Instance.EventTrigger(E_EventType.E_Test);
+            UIMgr.Instance.ShowPanel<BeginPanel>(E_UILayer.System, (panel) =>
+            {
+                panel.TestFun();
+            });
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Keyboard.current.hKey.wasPressedThisFrame)
         {
-            GameObject obj = PoolMgr.Instance.GetObj("Test/Cube");
-            obj.transform.position = Vector3.zero;
+            UIMgr.Instance.HidePanel<BeginPanel>(true);
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            PoolMgr.Instance.GetObj("Test/Sphere");
-        }
     }
 }
