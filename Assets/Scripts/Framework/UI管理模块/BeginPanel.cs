@@ -19,6 +19,7 @@ public class BeginPanel : BasePanel
         EventCenter.Instance.AddEventListener<float>(E_EventType.E_SceneLoadChange,ChangeScene);
     }
 
+
     private void ChangeScene(float p)
     {
         print("切换场景的进度" + p);

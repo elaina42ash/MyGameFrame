@@ -21,4 +21,29 @@ public enum E_EventType
     /// 场景切换时进度变化获取
     /// </summary>
     E_SceneLoadChange,
+
+    /// <summary>
+    /// 输入系统触发技能1 行为
+    /// </summary>
+    E_Input_Skill1,
+
+    /// <summary>
+    /// 输入系统触发技能2 行为
+    /// </summary>
+    E_Input_Skill2,
+
+    /// <summary>
+    /// 输入系统触发技能3 行为
+    /// </summary>
+    E_Input_Skill3,
+
+    /// <summary>
+    /// 水平热键 -1~1的事件监听
+    /// </summary>
+    E_Input_Horizontal,
+
+    /// <summary>
+    /// 竖直热键 -1~1的事件监听
+    /// </summary>
+    E_Input_Vertical,
 }
