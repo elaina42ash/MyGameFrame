@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
+using static UnityEditor.FilePathAttribute;
 
 public class MathUtil : MonoBehaviour
 {
@@ -96,5 +99,184 @@ public class MathUtil : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// 判断某一个位置 是否在指定扇形范围内 （注意：传入的坐标向量都必须是基于同一个坐标系下的）
+    /// </summary>
+    /// <param name="pos"> 扇形中心点 </param>
+    /// <param name="forward"> 自己的面朝向 </param>
+    /// <param name="targetPos">  </param>
+    /// <param name="radius"></param>
+    /// <param name="angle"></param>
+    /// <returns></returns>
+    public static bool IsInSectorRangeXZ(Vector3 pos, Vector3 forward, Vector3 targetPos, float radius, float angle)
+    {
+        pos.y = 0;
+        forward.y = 0;
+        targetPos.y = 0;
+        // 距离 + 角度
+        return Vector3.Distance(pos, targetPos) <= radius && Vector3.Angle(forward, targetPos - pos) <= angle / 2f;
+    }
+    #endregion
+
+    #region 射线检测相关
+
+    /// <summary>
+    /// 射线检测 获取一个对象 指定距离 指定层级的
+    /// </summary>
+    /// <param name="ray"> 射线 </param>
+    /// <param name="callBack"> 回调函数 （会把碰到的RayCastHit信息传递出去） </param>
+    /// <param name="maxDistance"> 最大距离 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    public static void RayCast(Ray ray, UnityAction<RaycastHit> callBack, float maxDistance, int layerMask)
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, maxDistance, layerMask))
+        {
+            callBack.Invoke(hitInfo);
+        }
+    }
+
+    /// <summary>
+    /// 射线检测 获取一个对象 指定距离 指定层级的
+    /// </summary>
+    /// <param name="ray"> 射线 </param>
+    /// <param name="callBack"> 回调函数 （会把碰到的GameObject信息传递出去） </param>
+    /// <param name="maxDistance"> 最大距离 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    public static void RayCast(Ray ray, UnityAction<GameObject> callBack, float maxDistance, int layerMask)
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, maxDistance, layerMask))
+        {
+            callBack.Invoke(hitInfo.collider.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 射线检测 获取一个对象 指定距离 指定层级的
+    /// </summary>
+    /// <param name="ray"> 射线 </param>
+    /// <param name="callBack"> 回调函数 （会把碰到的对象信息上挂载的指定脚本传递出去） </param>
+    /// <param name="maxDistance"> 最大距离 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    public static void RayCast<T>(Ray ray, UnityAction<T> callBack, float maxDistance, int layerMask)
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, maxDistance, layerMask))
+        {
+            callBack.Invoke(hitInfo.collider.gameObject.GetComponent<T>());
+        }
+    }
+
+    /// <summary>
+    /// 射线检测 获取到多个对象 指定距离 指定层级
+    /// </summary>
+    /// <param name="ray"> 射线 </param>
+    /// <param name="callBack"> 回调函数 （会把碰到的RayCastHit信息传递出去）  每一个对象都会调用一次 </param>
+    /// <param name="maxDistance"> 最大距离 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    public static void RayCastAll(Ray ray, UnityAction<RaycastHit> callBack, float maxDistance, int layerMask)
+    {
+        RaycastHit[] hitInfos = Physics.RaycastAll(ray, maxDistance, layerMask);
+        for (int i = 0; i < hitInfos.Length; i++)
+        {
+            callBack.Invoke(hitInfos[i]);
+        }
+    }
+
+    /// <summary>
+    /// 射线检测 获取到多个对象 指定距离 指定层级
+    /// </summary>
+    /// <param name="ray"> 射线 </param>
+    /// <param name="callBack"> 回调函数 （会把碰到的GameObject信息传递出去）  每一个对象都会调用一次 </param>
+    /// <param name="maxDistance"> 最大距离 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    public static void RayCastAll(Ray ray, UnityAction<GameObject> callBack, float maxDistance, int layerMask)
+    {
+        RaycastHit[] hitInfos = Physics.RaycastAll(ray, maxDistance, layerMask);
+        for (int i = 0; i < hitInfos.Length; i++)
+        {
+            callBack.Invoke(hitInfos[i].collider.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 射线检测 获取到多个对象 指定距离 指定层级
+    /// </summary>
+    /// <param name="ray"> 射线 </param>
+    /// <param name="callBack"> 回调函数 （会把碰到的对象信息上依附的脚本传递出去）  每一个对象都会调用一次 </param>
+    /// <param name="maxDistance"> 最大距离 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    public static void RayCastAll<T>(Ray ray, UnityAction<T> callBack, float maxDistance, int layerMask)
+    {
+        RaycastHit[] hitInfos = Physics.RaycastAll(ray, maxDistance, layerMask);
+        for (int i = 0; i < hitInfos.Length; i++)
+        {
+            callBack.Invoke(hitInfos[i].collider.gameObject.GetComponent<T>());
+        }
+    }
+
+    #endregion
+
+    #region 范围检测相关
+
+    /// <summary>
+    /// 进行盒装范围检测
+    /// </summary>
+    /// <typeparam name="T"> 想要获取的信息类型 可以填写 Collider GameObject 以及对象上依附的组件类型 </typeparam>
+    /// <param name="center"> 盒状中心点 </param>
+    /// <param name="rotation"> 盒子的角度 </param>
+    /// <param name="halfExtents"> 长宽高的一半 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    /// <param name="callBack"> 回调函数 </param>
+    public static void  OverlapBox<T>(Vector3 center, Quaternion rotation, Vector3 halfExtents, int layerMask, UnityAction<T> callBack) where T : class
+    {
+        Type type = typeof(T);
+        Collider[] colliders = Physics.OverlapBox(center, halfExtents, rotation, layerMask, QueryTriggerInteraction.Collide);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (type == typeof(Collider))
+            {
+                callBack.Invoke(colliders[i] as T);
+            }
+            else if (type == typeof(GameObject))
+            {
+                callBack.Invoke(colliders[i].gameObject as T);
+            }
+            else
+            {
+                callBack.Invoke(colliders[i].gameObject.GetComponent<T>());
+            }
+        }
+    }
+
+    /// <summary>
+    /// 进行球体范围检测
+    /// </summary>
+    /// <typeparam name="T"> 想要获取的信息类型 可以填写 Collider GameObject 以及对象上依附的组件类型 </typeparam>
+    /// <param name="center"> 球体的中心点 </param>
+    /// <param name="radius"> 球体的半径 </param>
+    /// <param name="layerMask"> 层级筛选 </param>
+    /// <param name="callBack"> 回调函数 </param>
+    public static void OverlapSphere<T>(Vector3 center, float radius, int layerMask, UnityAction<T> callBack) where T : class
+    {
+        Type type = typeof(T);
+        Collider[] colliders = Physics.OverlapSphere(center, radius, layerMask, QueryTriggerInteraction.Collide);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (type == typeof(Collider))
+            {
+                callBack.Invoke(colliders[i] as T);
+            }
+            else if (type == typeof(GameObject))
+            {
+                callBack.Invoke(colliders[i].gameObject as T);
+            }
+            else
+            {
+                callBack.Invoke(colliders[i].gameObject.GetComponent<T>());
+            }
+        }
+    }
     #endregion
 }
