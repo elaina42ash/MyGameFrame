@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.FilePathAttribute;
 
 public class MathUtil : MonoBehaviour
 {
