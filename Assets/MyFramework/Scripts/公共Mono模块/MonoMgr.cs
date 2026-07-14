@@ -5,7 +5,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 公共Mono模块
 /// </summary>
-public class MonoMgr : SingletonAutoMono<MonoMgr>
+public class MonoMgr : SingletonAutoMonoCrossScene<MonoMgr>
 {
     private event UnityAction updateEvent;
     private event UnityAction fixedUpdateEvent;

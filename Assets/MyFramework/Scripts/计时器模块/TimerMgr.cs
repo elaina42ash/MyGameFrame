@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 计时器管理器 主要用于开启、停止、重置等等操作来管理计时器
 /// </summary>
-public class TimerMgr : BaseManager<TimerMgr>
+public class TimerMgr : Singleton<TimerMgr>
 {
     /// <summary>
     /// 用于记录当前将要创建的唯一ID的

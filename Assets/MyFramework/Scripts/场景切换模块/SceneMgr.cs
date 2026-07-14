@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// 场景切换管理器 主要用于切换场景
 /// </summary>
-public class SceneMgr : BaseManager<SceneMgr>
+public class SceneMgr : Singleton<SceneMgr>
 {
     private SceneMgr() { }
 

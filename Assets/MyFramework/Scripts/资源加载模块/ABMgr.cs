@@ -10,7 +10,7 @@ using UnityEngine.Events;
 //委托
 //lambda表达式
 //单例模式基类——>观看Unity小框架视频 进行学习
-public class ABMgr : SingletonAutoMono<ABMgr>
+public class ABMgr : SingletonAutoMonoCrossScene<ABMgr>
 {
     //主包
     private AssetBundle mainAB = null;

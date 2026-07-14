@@ -154,7 +154,7 @@ public interface IPoolObject
 /// <summary>
 /// 缓存池（对象池）模块 管理器
 /// </summary>
-public class PoolMgr : BaseManager<PoolMgr>
+public class PoolMgr : Singleton<PoolMgr>
 {
     // 柜子容器当中有抽屉的体现
     // 值 其实代表的就是一个 抽屉对象

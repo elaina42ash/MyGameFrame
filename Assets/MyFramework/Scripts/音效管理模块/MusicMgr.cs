@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MusicMgr : BaseManager<MusicMgr>
+public class MusicMgr : Singleton<MusicMgr>
 {
     // 背景音乐播放组件
     private AudioSource bkMusic = null;

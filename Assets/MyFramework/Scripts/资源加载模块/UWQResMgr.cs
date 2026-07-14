@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 
-public class UWQResMgr : SingletonAutoMono<UWQResMgr>
+public class UWQResMgr : SingletonAutoMonoCrossScene<UWQResMgr>
 {
     /// <summary>
     /// 利用UnityWebRequest去加载资源

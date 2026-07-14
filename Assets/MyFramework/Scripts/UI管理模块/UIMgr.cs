@@ -18,7 +18,7 @@ public enum E_UILayer
 /// 管理所有UI面板的管理器
 /// 注意：面板预设体名要和面板类名一致
 /// </summary>
-public class UIMgr : BaseManager<UIMgr>
+public class UIMgr : Singleton<UIMgr>
 {
     /// <summary>
     /// 主要用于里氏替换原则 在字典中 用父类容器装在子类对象

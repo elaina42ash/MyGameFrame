@@ -4,7 +4,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 用于进行加载AB相关资源的整合 在开发中可以通过EditorResMgr去加载对应资源进行测试
 /// </summary>
-public class ABResMgr : BaseManager<ABResMgr>
+public class ABResMgr : Singleton<ABResMgr>
 {
     // 如果是true会通过EditorResMgr去加载 如果是false会通过ABMgr AB包的形式去加载
     private bool isDebug = false;

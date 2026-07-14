@@ -40,7 +40,7 @@ public class ResInfo<T> : ResInfoBase
     }
 }
 
-public class ResMgr : BaseManager<ResMgr>
+public class ResMgr : Singleton<ResMgr>
 {
     private ResMgr() { }
 

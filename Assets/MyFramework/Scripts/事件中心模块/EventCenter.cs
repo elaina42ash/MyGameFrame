@@ -40,7 +40,7 @@ public class EventInfo : EventInfoBase
 /// <summary>
 /// 事件中心模块
 /// </summary>
-public class EventCenter : BaseManager<EventCenter>
+public class EventCenter : Singleton<EventCenter>
 {
     private EventCenter() { }
 

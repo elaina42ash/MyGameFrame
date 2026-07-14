@@ -8,7 +8,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 /// 注意：只有在开发时能使用该管理器加载资源 用于开发功能
 /// 发布后 是无法使用该管理器的 因为它需要用到编辑器相关功能
 /// </summary>
-public class EditorResMgr : BaseManager<EditorResMgr>
+public class EditorResMgr : Singleton<EditorResMgr>
 {
     // 用于放置需要打包进AB包中的资源路径
     private string rootPath = "Assets/Editor/ArtRes/";
